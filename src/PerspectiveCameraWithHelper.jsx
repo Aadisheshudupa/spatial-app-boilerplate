@@ -6,6 +6,8 @@ import { cameraNames } from './atoms';
 import { activeCamera } from './atoms';
 import { selectedCamera } from './atoms';
 import { useAtom } from 'jotai';
+import { TransformControls } from '@react-three/drei';
+import { transformControlsAtom } from './atoms';
 
 class CustomColor {
   constructor(colorString) {
@@ -28,6 +30,7 @@ export default function PerspectiveCameraWithHelper({ name, ...perspectiveCamera
   const [visible,setVisibilile] = useAtom(cameraNames);
   const [active,setActive] = useAtom(activeCamera);
   const [selected,SetSelected] = useAtom(selectedCamera);
+  const [transform,setTransform] = useAtom(transformControlsAtom);
 
   const helper = useHelper(visibility&&cameraRef, CameraHelper);
 
@@ -55,12 +58,15 @@ export default function PerspectiveCameraWithHelper({ name, ...perspectiveCamera
 
   useEffect(() => {
     if (visible[name] !== undefined) {
-      setVisibility(visible[name]);
+      setVisibility(visible[name][0]);
     }
   }, [visible, name]);
 
   return (
+    <>    {selected===name && <TransformControls mode={transform} object={cameraRef}/>}
     <PerspectiveCamera {...perspectiveCameraProps} name={name}  ref={cameraRef} makeDefault={cameraActive}>
     </PerspectiveCamera>
+    </>
+
   );
 }
