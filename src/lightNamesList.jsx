@@ -58,8 +58,9 @@ function LightNamesList() {
   return (
     <div>
       {/* Button to toggle the dropdown */}
-      <div onClick={toggleDropdown} style={{ position: 'absolute', left: '87%', zIndex: '1', top: '22%' }}>
+      <div onClick={toggleDropdown} style={{ position: 'absolute', left: '87%', zIndex: '1', top: '22%' }}   className="tooltip-container"      >
         <ThreeDIcons path={'./lamp.glb'} key={"1"} />
+        <span className="tooltip">Light</span>
       </div>
 
       {/* Dropdown menu */}
@@ -67,7 +68,8 @@ function LightNamesList() {
         <table style={{ position: 'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)', top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'white', border: '1px solid #ccc', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px' }}>
           <tbody>
             <tr onClick={() => setNewlight(true)}>
-              <td>
+              <td className='tooltip-container'>
+              <span className="tooltip">Add</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className='icon'>
                   <path d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z" />
                 </svg>
