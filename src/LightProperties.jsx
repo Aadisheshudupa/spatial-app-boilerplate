@@ -18,7 +18,7 @@ const LightProperties = () => {
     };
 
     return (
-        <div style={{ position: 'absolute', zIndex: 2, height: '240px', overflowY: 'scroll', padding: '10px', border: '1px solid #ccc', backgroundColor:  'rgba(0, 0, 0, 0.5)',color:'white',top:'60%',left:'80%' }}>
+        <div style={{ position: 'absolute', zIndex: 2, height: '240px', overflowY: 'auto', padding: '10px',borderRadius: '10px', backgroundColor:  'rgba(0, 0, 0, 0.5)',color:'white',top:'60%',left:'80%',scrollbarWidth:'none' }}>
             {Light && (
                 <>
                     <div style={{ marginBottom: '10px' }}>

@@ -63,7 +63,8 @@ function CameraNamesList() {
 
       {/* Dropdown menu */}
       {dropdownVisible && (
-        <table style={{position:'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)' , top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'white', border: '1px solid #ccc', padding: '10px', maxHeight: '20px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px' }}>
+        <div style={{position:'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)' , top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
+        <table>
           {/* Mapping over cameraNames object to render rows */}
           <tr className='tooltip-container' onClick={()=>{
             setNewCam(true);
@@ -122,6 +123,7 @@ function CameraNamesList() {
             </tr>
           ))}
         </table>
+        </div>
       )}
       {newCam && 
       <>

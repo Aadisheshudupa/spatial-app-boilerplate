@@ -142,9 +142,13 @@ button:focus-visible {
   border-radius: 8px !important;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2) !important;
   padding: 10px !important;
-  border: 1px solid #ccc !important;
-}
+  border: none; /* Remove the border */
+    transition: all 0.3s ease-in-out;
 
+}
+-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 /* Customize the individual components */
 .sketch-picker .flexbox-fix {
   background: transparent !important;

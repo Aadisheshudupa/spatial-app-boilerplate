@@ -65,7 +65,8 @@ function LightNamesList() {
 
       {/* Dropdown menu */}
       {dropdownVisible && (
-        <table style={{ position: 'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)', top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'white', border: '1px solid #ccc', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px' }}>
+        <div style={{ position: 'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)', top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white',  padding: '10px', maxHeight: '160px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
+        <table>
           <tbody>
             <tr onClick={() => setNewlight(true)}>
               <td className='tooltip-container'>
@@ -112,6 +113,7 @@ function LightNamesList() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
       {newlight && <LightControls />}
       {select && <LightProperties />}
