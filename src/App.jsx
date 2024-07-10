@@ -18,7 +18,7 @@ import Lights from './Lights.jsx';
 import { cameraNames } from './atoms.js';
 import CameraManager from './CameraManager.jsx';
 import AddCameraUI from './addCameraUI.jsx';
-import LightCameraNamesList from './lightNamesList.jsx';
+import LightNamesList from './lightNamesList.jsx';
 import TransformControls from './TransformControls.jsx';
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
     <TransformControls/>
       <ColorPickerGrid />
       <CameraNamesList position={'absolute'}/>
-      <LightCameraNamesList position={'absolute'}/>
+      <LightNamesList position={'absolute'}/>
       <Canvas camera={{ position: [0, 3, 10] }} shadows={shadows} >
         <Lights/>
       <ambientLight />

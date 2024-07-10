@@ -1,3 +1,4 @@
+//for adding lights
 import React, { useState, useEffect, useRef } from 'react';
 import { useAtom } from 'jotai';
 import { expandedLight, light, globalExposures, globalShadow, newLight } from './atoms';

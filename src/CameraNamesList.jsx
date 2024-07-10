@@ -1,3 +1,4 @@
+//UI for list of all cameras
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import ThreeDIcons from './ThreeDIcons';

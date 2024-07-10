@@ -1,3 +1,5 @@
+//UI for displaying adding options
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useAtom } from 'jotai';
 import { cameraNames, newCamera } from './atoms.js';
