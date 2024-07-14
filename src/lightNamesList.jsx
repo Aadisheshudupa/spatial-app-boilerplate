@@ -1,3 +1,5 @@
+//DISPLAYING NAMES OF THE LIGHT
+
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import ThreeDIcons from './ThreeDIcons';
@@ -7,7 +9,7 @@ import { dropdownCam } from './atoms';
 import { dropdownLight } from './atoms';
 import { newLight } from './atoms';
 import LightProperties from './LightProperties';
-
+import { toggleDropAction } from './atoms';
 function LightNamesList() {
   // State to manage dropdown visibility
   const [dropdownVisible, setDropdownVisible] = useAtom(dropdownLight);
@@ -17,7 +19,7 @@ function LightNamesList() {
   const [newlight, setNewlight] = useAtom(newLight);
   const [select, SetSelect] = useAtom(selectedLight);
   const [editingLight,setEditingLight] = useState(null);
-
+  const [dropAction,setDropAction] = useAtom(toggleDropAction);
   // Function to toggle dropdown visibility
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -26,6 +28,10 @@ function LightNamesList() {
         setDropCam(false);
         console.log("Cam set to false")
       }
+      if(dropAction==true)
+        {
+          setDropAction(false);
+        }
   };
   useEffect(()=>{
     if(dropdownVisible==false)
@@ -58,14 +64,14 @@ function LightNamesList() {
   return (
     <div>
       {/* Button to toggle the dropdown */}
-      <div onClick={toggleDropdown} style={{ position: 'absolute', left: '87%', zIndex: '1', top: '22%' }}   className="tooltip-container"      >
+      <div onClick={toggleDropdown} style={{ position: 'absolute', left: '84%', zIndex: '1', top: '22%' }}   className="tooltip-container"      >
         <ThreeDIcons path={'./lamp.glb'} key={"1"} />
         <span className="tooltip">Light</span>
       </div>
 
       {/* Dropdown menu */}
       {dropdownVisible && (
-        <div style={{ position: 'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)', top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white',  padding: '10px', maxHeight: '160px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
+        <div style={{ position: 'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)', top: '35%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white',  padding: '10px', maxHeight: '160px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
         <table>
           <tbody>
             <tr onClick={() => setNewlight(true)}>

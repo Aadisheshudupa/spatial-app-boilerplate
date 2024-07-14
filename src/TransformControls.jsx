@@ -1,3 +1,5 @@
+//FOR TRANSFORM MOVE,ROTATE,SCALE
+
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { transformControlsAtom } from './atoms';

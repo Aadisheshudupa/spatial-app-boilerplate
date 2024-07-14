@@ -1,4 +1,5 @@
-//UI for list of all cameras
+//DISPLAYING NAMES OF THE CAMERA
+
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import ThreeDIcons from './ThreeDIcons';
@@ -8,6 +9,7 @@ import { newCamera } from './atoms';
 import LightControls from './LightControls';
 import { dropdownCam } from './atoms';  
 import { dropdownLight } from './atoms';
+import { toggleDropAction } from './atoms';
 
 function CameraNamesList() {
   // State to manage dropdown visibility
@@ -19,6 +21,7 @@ function CameraNamesList() {
   const [editingCamera, setEditingCamera] = useState(null);
   const [newName, setNewName] = useState('');
   const [newCam,setNewCam] = useAtom(newCamera);
+  const [dropAction,setDropAction] = useAtom(toggleDropAction);
 
   // Function to toggle dropdown visibility
   const toggleDropdownCamera = () => {
@@ -28,6 +31,10 @@ function CameraNamesList() {
       setDropLight(false);
       console.log("Light set to false")
 
+    }
+    if(dropAction==true)
+    {
+      setDropAction(false);
     }
     
   };
@@ -56,7 +63,7 @@ function CameraNamesList() {
     <div>
       {/* Button to toggle the dropdown */}
       
-      <div onClick={toggleDropdownCamera} style={{ position: 'absolute', left:'93%',zIndex: '1', top: '22%',}}  className="tooltip-container"      >
+      <div onClick={toggleDropdownCamera} style={{ position: 'absolute', left:'89%',zIndex: '1', top: '22%',}}  className="tooltip-container"      >
         <ThreeDIcons path={'./camera.glb'} key={"1"} />
         <span className="tooltip">Camera</span>
       </div>
@@ -64,7 +71,7 @@ function CameraNamesList() {
 
       {/* Dropdown menu */}
       {dropdownVisible && (
-        <div style={{position:'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)' , top: '34%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
+        <div style={{position:'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)' , top: '35%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
         <table>
           {/* Mapping over cameraNames object to render rows */}
           <tr className='tooltip-container' onClick={()=>{

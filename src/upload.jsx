@@ -3,7 +3,6 @@ import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { GLTFExporter } from 'three/examples/jsm/Addons.js';
 import Swal from 'sweetalert2';
-
 const firebaseConfig = {
     apiKey: "AIzaSyBUsbX0lNGuDwn_sDkqy4djrDJpdL3Qr5g",
     authDomain: "twojs-bdb50.firebaseapp.com",
@@ -17,13 +16,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-async function compressAndExportGLTF(gltf, storageRef) {
+async function compressAndExportGLTF(gltf, storageRef,allAnimations) {
     const exporter = new GLTFExporter();
     const options = {
         binary: true,
         dracoOptions: {
             compressionLevel: 10
-        }
+        },
+        animations: allAnimations,
     };
     Swal.fire({
         title: 'Uploading...',
@@ -35,7 +35,7 @@ async function compressAndExportGLTF(gltf, storageRef) {
     });
 
     return new Promise(async (resolve, reject) => {
-        exporter.parse(gltf.scene, async(result) => {
+        exporter.parse(gltf, async(result) => {
             console
             const blob = new Blob([result], { type: 'application/octet-stream' });
             const snapshot = await uploadBytes(storageRef, blob);
@@ -54,11 +54,11 @@ async function compressAndExportGLTF(gltf, storageRef) {
     });
 }
 
-const uploadFile = async (gltf,name) => {
+const uploadFile = async (gltf,name,allAnimations) => {
     console.log(name);
   const storageRef = ref(storage, 'models/'+name+'.glb'); // Specify the path in Firebase Storage
   try {
-    const compressedBlob = await compressAndExportGLTF(gltf, storageRef); // Wait for the promise to resolve
+    const compressedBlob = await compressAndExportGLTF(gltf, storageRef,allAnimations); // Wait for the promise to resolve
     console.log('File upload completed:', compressedBlob);
 } catch (error) {
     console.error('File upload failed:', error);

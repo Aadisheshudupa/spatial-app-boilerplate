@@ -1,4 +1,5 @@
-//for adding lights
+//ui TO ADD LIGHTS IN THE SCENE
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useAtom } from 'jotai';
 import { expandedLight, light, globalExposures, globalShadow, newLight } from './atoms';

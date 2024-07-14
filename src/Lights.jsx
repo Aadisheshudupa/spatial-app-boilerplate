@@ -1,3 +1,4 @@
+//aDDING LIGHTS IN THE SCENE
 import React, { useRef, useEffect } from 'react';
 import { DirectionalLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import {light} from './atoms.js'

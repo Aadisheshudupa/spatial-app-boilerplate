@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { exp } from "three/examples/jsm/nodes/Nodes.js";
 
 export const backgroundColor = atom('#3b3b3b');
 
@@ -40,3 +39,11 @@ export const dropdownLight = atom(false);
 export const newLight = atom(false);
 
 export const transformControlsAtom = atom('translate');
+
+export const record = atom(null);
+
+export const ExportTrigger = atom(null);
+
+export const blob = atom(null);
+
+export const toggleDropAction = atom(false);

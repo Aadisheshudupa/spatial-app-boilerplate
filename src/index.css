@@ -217,3 +217,48 @@ button:focus-visible {
   fill: var(--icon-color);
 }
 
+.menu {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown-item {
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.nested-dropdown {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-item:hover .nested-dropdown {
+  display: block;
+}

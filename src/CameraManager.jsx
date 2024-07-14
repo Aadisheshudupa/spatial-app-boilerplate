@@ -1,4 +1,4 @@
-// CameraManager.jsx for displaying camera in the scene
+// CameraManager.jsx IT MANAGES THE ADDITION OF CAMERAS IN THE SCENE
 import { useEffect, useState } from 'react';
 import PerspectiveCameraWithHelper from './PerspectiveCameraWithHelper.jsx';
 import OrthographicCameraWithHelper from './OrthographicCameraWithHelper.jsx';

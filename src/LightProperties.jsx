@@ -1,3 +1,5 @@
+//CHANGE PROPERTIES OF SELECTED LIGHTS IN THE SCENE
+
 import React from 'react';
 import { useAtom } from 'jotai';
 import { selectedLight } from './atoms';

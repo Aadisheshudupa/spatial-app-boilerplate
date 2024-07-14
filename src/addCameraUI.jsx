@@ -1,4 +1,4 @@
-//UI for displaying adding options
+//ui TO ADD CAMERA TO THE SCENE
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useAtom } from 'jotai';
