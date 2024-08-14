@@ -65,7 +65,11 @@ const ColorPickerGrid = ({  gridHelperRef }) => {
         <span className="tooltip">Background Colour</span>
       </button>
       {pickerVisible && (
+        <>
           <SketchPicker color={BackgroundColor} onChange={handleColorChange} />
+          <button>DAY</button>
+          <button>NIGHT</button>
+          </>
       )}
     </div>
   );

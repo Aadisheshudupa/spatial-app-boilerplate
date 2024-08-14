@@ -21,7 +21,10 @@ function LocalImport() {
         }
     };
     return (
-        <input type="file" accept=".glb, .gltf" onChange={handleFileUpload} style={{float:'left',padding:'5px',width:'190px'}}/>
+        <>
+                            <input type="file" accept=".glb,.gltf" onChange={handleFileUpload} style={{ display: 'none' }} id="importFileInput" />
+                            <div onClick={() => document.getElementById('importFileInput').click()} className="importButton" style={{padding:'10px'}}>Import local</div>
+                            </>
     );
 }
 

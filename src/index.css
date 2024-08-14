@@ -70,7 +70,7 @@ button:focus-visible {
 .color-picker-button {
   position: absolute;
   top: 100px;
-  left: 10px;
+  left: 20px;
   z-index: 1;
 }
 
@@ -87,9 +87,9 @@ button:focus-visible {
   height: 40px; /* Adjust the size as needed */
 }
 
-.color-picker-button .tooltip {
+.tooltip {
   visibility: hidden;
-  width: 120px;
+  width: 90px;
   background-color: #555;
   color: #fff;
   text-align: center;
@@ -102,9 +102,10 @@ button:focus-visible {
   margin-left: -50px;
   opacity: 0;
   transition: opacity 0.3s;
+  
 }
 
-.color-picker-button .tooltip::after {
+.tooltip::after {
   content: "";
   position: absolute;
   top: 100%; /* Bottom of the tooltip */
@@ -119,7 +120,14 @@ button:focus-visible {
   visibility: visible;
   opacity: 1;
 }
-
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
 .picker {
   position: absolute;
   z-index: 1;
@@ -134,9 +142,13 @@ button:focus-visible {
   border-radius: 8px !important;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2) !important;
   padding: 10px !important;
-  border: 1px solid #ccc !important;
-}
+  border: none; /* Remove the border */
+    transition: all 0.3s ease-in-out;
 
+}
+-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 /* Customize the individual components */
 .sketch-picker .flexbox-fix {
   background: transparent !important;
@@ -203,4 +215,50 @@ button:focus-visible {
   width: 24px;
   height: 24px;
   fill: var(--icon-color);
+}
+
+.menu {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown-item {
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.nested-dropdown {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-item:hover .nested-dropdown {
+  display: block;
 }

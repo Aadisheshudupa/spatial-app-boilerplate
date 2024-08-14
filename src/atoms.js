@@ -18,4 +18,38 @@ export const toCloud = atom(false);
 
 export const inputModelUrl = atom('');
 
-export const modelUrls=atom([]);
+export const modelUrls = atom([]);
+
+export const light = atom([]);
+
+export const expandedLight = atom(null);
+
+export const globalExposures = atom(1);
+
+export const globalShadow = atom(true);
+
+export const newCamera = atom(false);
+
+export const selectedLight = atom(null);
+
+export const dropdownCam = atom(false);
+
+export const dropdownLight = atom(false);
+
+export const newLight = atom(false);
+
+export const transformControlsAtom = atom('translate');
+
+export const record = atom(null);
+
+export const ExportTrigger = atom(null);
+
+export const blob = atom(null);
+
+export const toggleDropAction = atom(false);
+
+export const ModelLoaded = atom(false);
+
+export const GroupRef = atom(null);
+
+export const CameraRef = atom(null);

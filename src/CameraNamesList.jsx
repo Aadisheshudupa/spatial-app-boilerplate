@@ -1,53 +1,116 @@
-import { useState,useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
-import ThreeDIcons from './ThreeDIcons';
-import { cameraNames } from './atoms';
-import { activeCamera } from './atoms';
-import { selectedCamera } from './atoms';
+//DISPLAYING NAMES OF THE CAMERA
+
+import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
+import ThreeDIcons from './ThreeDIcons';
+import { cameraNames, activeCamera, selectedCamera } from './atoms';
+import AddCameraUI from './addCameraUI';
+import { newCamera } from './atoms';
+import LightControls from './LightControls';
+import { dropdownCam } from './atoms';  
+import { dropdownLight } from './atoms';
+import { toggleDropAction } from './atoms';
 
 function CameraNamesList() {
   // State to manage dropdown visibility
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [CameraNames,setCameraNames] = useAtom(cameraNames);
-  const [ActiveCamera,setActiveCamera] = useAtom(activeCamera);
-  const [SelectedCamera,SetSelectedCamera] = useAtom(selectedCamera);
+  const [dropdownVisible, setDropdownVisible] = useAtom(dropdownCam);
+  const [dropLight,setDropLight] = useAtom(dropdownLight);
+  const [cameraNamesState, setCameraNames] = useAtom(cameraNames);
+  const [activeCameraState, setActiveCamera] = useAtom(activeCamera);
+  const [selectedCameraState, setSelectedCamera] = useAtom(selectedCamera);
+  const [editingCamera, setEditingCamera] = useState(null);
+  const [newName, setNewName] = useState('');
+  const [newCam,setNewCam] = useAtom(newCamera);
+  const [dropAction,setDropAction] = useAtom(toggleDropAction);
 
   // Function to toggle dropdown visibility
-  const toggleDropdown = () => {
+  const toggleDropdownCamera = () => {
     setDropdownVisible(!dropdownVisible);
-    setActiveCamera('defaults');
-    SetSelectedCamera('defaults');
+    if(dropLight == true)
+    {
+      setDropLight(false);
+      console.log("Light set to false")
+
+    }
+    if(dropAction==true)
+    {
+      setDropAction(false);
+    }
     
   };
-  
+  useEffect(()=>{
+    if(dropdownVisible==false)
+    {
+    setActiveCamera('defaults');
+    setSelectedCamera('defaults');
+    }
+  },[dropdownVisible])
+
+  // Function to handle name edit
+  const handleNameEdit = (camera) => {
+    setEditingCamera(camera);
+    setNewName(cameraNamesState[camera][2] || ''); // Set initial value of input to the current camera name
+  };
+
+  // Function to save the new name
+  const saveNewName = (camera) => {
+    const updatedCameras = { ...cameraNamesState, [camera]: [cameraNamesState[camera][0], cameraNamesState[camera][1], newName] };
+    setCameraNames(updatedCameras);
+    setEditingCamera(null);
+  };
+
   return (
     <div>
       {/* Button to toggle the dropdown */}
-      <div onClick={toggleDropdown} style={{ position: 'absolute', zIndex: '1', left: '93%', top: '25%',  }} >
-        <ThreeDIcons path={'./camera.glb'}/>
+      
+      <div onClick={toggleDropdownCamera} style={{ position: 'absolute', left:'89%',zIndex: '1', top: '22%',}}  className="tooltip-container"      >
+        <ThreeDIcons path={'./camera.glb'} key={"1"} />
+        <span className="tooltip">Camera</span>
       </div>
+      
 
       {/* Dropdown menu */}
       {dropdownVisible && (
-        <table style={{ position: 'absolute', zIndex: '1', left: '80%', top: '35%', backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'white', border: '1px solid #ccc', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px' }}>
+        <div style={{position:'absolute', zIndex: '1', right: 'min(1vh - 1px, 2vh)' , top: '35%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '10px', maxHeight: '200px', overflowY: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px',scrollbarWidth:'none' }}>
+        <table>
           {/* Mapping over cameraNames object to render rows */}
-          {Object.keys(CameraNames).map((camera, index) => (
-            <tr
-              key={index}    
-            >
-              {/* Display camera name */}
+          <tr className='tooltip-container' onClick={()=>{
+            setNewCam(true);
+          }}>
+                    <span className="tooltip">Add</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className='icon' >
+          <path d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"/></svg>
+          </tr>
+          {Object.keys(cameraNamesState).map((camera, index) => (
+            <tr key={index}>
+              {/* Display or edit camera name */}
               <td onClick={()=>{
-                SetSelectedCamera(camera);
-              }}>{camera || 'Unnamed camera'}</td>
+                setSelectedCamera(camera);
+              }}
+              onDoubleClick={() => handleNameEdit(camera)} >
+                {editingCamera === camera ? (
+                  <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    onBlur={() => saveNewName(camera)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        saveNewName(camera);
+                      }
+                    }}
+                  />
+                ) : (
+                  cameraNamesState[camera][2] || 'Unnamed camera'
+                )}
+              </td>
 
               {/* Display icon based on camera state */}
               <td className='icon' onClick={() => {
-
-                const updatedCameras = { ...CameraNames, [camera]: !CameraNames[camera] };
-                setCameraNames(updatedCameras); 
+                const updatedCameras = { ...cameraNamesState, [camera]: [!cameraNamesState[camera][0], cameraNamesState[camera][1], cameraNamesState[camera][2]] };
+                setCameraNames(updatedCameras);
               }}>
-                {CameraNames[camera] ? (
+                {cameraNamesState[camera][0] ? (
                   // Icon when camera is active
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512">
                     <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
@@ -60,14 +123,22 @@ function CameraNamesList() {
                 )}
               </td>
               <td className='icon' onClick={() => {
-        if (ActiveCamera !== 'default') setActiveCamera('default'); // Ensure default camera is activated before switching
-        setTimeout(() => setActiveCamera(camera), 0); // Switch to PerspectiveCamera1
-      }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="video-camera"><path d="M8.5,4 C9.32843,4 10,4.67157 10,5.5 L10,10.5 C10,11.3284 9.32843,12 8.5,12 L3.5,12 C2.67157,12 2,11.3284 2,10.5 L2,5.5 C2,4.67157 2.67157,4 3.5,4 L8.5,4 Z M13.2484,4.17778 C13.5560615,4.00182308 13.9331669,4.19321101 13.9895199,4.52565995 L13.9967,4.61158 L13.9996001,11.388 C13.9997846,11.7424615 13.6462746,11.9749065 13.3296592,11.8587365 L13.2515,11.8223 L11.0003,10.5359 L11.0003,5.46373 L13.2484,4.17778 Z"></path></svg>              </td>
+                if (activeCameraState !== 'default') setActiveCamera('default'); // Ensure default camera is activated before switching
+                setTimeout(() => setActiveCamera(camera), 0); // Switch to PerspectiveCamera1
+              }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="video-camera"><path d="M8.5,4 C9.32843,4 10,4.67157 10,5.5 L10,10.5 C10,11.3284 9.32843,12 8.5,12 L3.5,12 C2.67157,12 2,11.3284 2,10.5 L2,5.5 C2,4.67157 2.67157,4 3.5,4 L8.5,4 Z M13.2484,4.17778 C13.5560615,4.00182308 13.9331669,4.19321101 13.9895199,4.52565995 L13.9967,4.61158 L13.9996001,11.388 C13.9997846,11.7424615 13.6462746,11.9749065 13.3296592,11.8587365 L13.2515,11.8223 L11.0003,10.5359 L11.0003,5.46373 L13.2484,4.17778 Z"></path></svg>
+              </td>
             </tr>
           ))}
         </table>
+        </div>
       )}
+      {newCam && 
+      <>
+      <AddCameraUI style={{position:'absolute'}}/>
+      </>
+      }
+      
     </div>
   );
 }
