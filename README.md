@@ -6,4 +6,4 @@ made using react-three-fiber. It is VR compatible to make it more immersive. It 
 planning.
 User can Load and store 3D models from the cloud marketplace implemented using Firebase
 
-the website link is 3dtinker[https://3dtinker.vercel.app/]
+the website link is [3dtinker](https://3dtinker.vercel.app/)
